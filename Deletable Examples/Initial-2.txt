@@ -1,0 +1,118 @@
+let linkedList = [21,45,77,12,54,1,3,4,5,6,7,8];
+let calculated = false;
+let diameter = 50;
+let spacing = 25;
+let animationDuration = 700;
+let animationGap = 700;
+let animationStartTime = 0;
+let empty = false;
+let EmptyButton;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background(0,0,0);
+  colorMode(HSB);
+
+  let createListButton = createButton('Create');
+  createListButton.position(10, height - 30);
+  createListButton.mouseClicked(create);
+
+  EmptyButton = createButton('Empty');
+  EmptyButton.position(createListButton.x + createListButton.width + 10, height - 30);
+  EmptyButton.hide();
+  EmptyButton.mouseClicked(emptyList);
+
+  ellipseMode(CENTER);
+}
+
+function create() {
+  empty=true;
+}
+
+function emptyList(){
+  animationStartTime = millis();
+  calculated=true;
+}
+
+function drawArrow(startX, startY, endX, endY, arrowSize,progress) {
+  let angle = atan2(endY - startY, endX - startX);
+  let hypotenuse = dist(startX, startY, endX, endY);
+
+  push();
+  translate(startX, startY);
+  rotate(angle);
+
+  let arrowWidth = lerp(0, arrowSize, progress);
+  let arrowHeight = arrowWidth * 2;
+
+  let x1 = hypotenuse;
+  let y1 = 0;
+  let x2 = hypotenuse - arrowWidth;
+  let y2 = -arrowHeight / 2;
+  let x3 = hypotenuse - arrowWidth;
+  let y3 = arrowHeight / 2;
+
+  let arrowOpaq = lerp(0,1,progress)*200;
+
+  stroke(255, 255, 255, arrowOpaq);
+
+  line(0, 0, x1, y1);
+  line(x1, y1, x2, y2);
+  line(x1, y1, x3, y3);
+  line(x2, y2, x3, y3);
+
+  pop();
+}
+
+function draw() {
+
+  if (empty) {
+    EmptyButton.show();
+  }
+
+  let totalWidth = (diameter * linkedList.length) + (spacing * (linkedList.length - 1));
+  let startX = (width - totalWidth) / 2;
+  if (calculated) {
+    for (let i = 0; i < linkedList.length; i++) {
+      let x = startX + i * (diameter + spacing);
+      let y = (height / 2) - 100;
+      let elapsedTime = millis() - animationStartTime;
+      if (elapsedTime > animationGap*i) {
+        let progress = constrain((elapsedTime - animationGap*i) / animationDuration,0,1);
+        let animatedDiameter = lerp(0, diameter, progress);
+
+        fill(200);
+        ellipse(x, y, animatedDiameter, animatedDiameter);
+        fill(0,0,0);
+        textAlign(CENTER, CENTER);
+        let textS = lerp(0,20,progress);
+        textSize(textS);
+        text(linkedList[i], x, y);
+        if ((i+1)!==linkedList.length) {
+          let arrowStartX = x + (animatedDiameter / 2)+lerp(0, spacing, progress / 2);
+          let arrowStartY = y;
+          let arrowEndX = x + (animatedDiameter / 2) + lerp(0, spacing, progress / 2);
+          let arrowEndY = y;
+          drawArrow(arrowStartX, arrowStartY, arrowEndX, arrowEndY, 6, progress);
+        }
+
+        if (i===0) {
+          stroke(200);
+          textAlign(CENTER, CENTER);
+          let textS = lerp(0,20,progress);
+          textSize(textS);
+          text("head/0", x, y+(diameter/2)+20);
+        }
+        
+        if (i===linkedList.length-1) {
+          stroke(200);
+          textAlign(CENTER, CENTER);
+          let textS = lerp(0,20,progress);
+          textSize(textS);
+          text(`tail/${i}`, x, y+(diameter/2)+20);
+        }
+      }
+      
+    }
+  }
+}

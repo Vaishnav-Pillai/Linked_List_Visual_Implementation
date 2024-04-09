@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="libraries/p5.dom.min.js"></script>
+    <script src="libraries/ml5.min.js"></script>
+    <script src="libraries/p5.anims.min.js"></script>
+  </head>
+
+  <style>
+    body{
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+    #algorithm-box {
+      display: none;
+      white-space: pre;
+      position: fixed;
+      color: black;
+      bottom: 10vh;
+      right: 1vb;
+      width: 300px;
+      border-radius: 10px 0px 0px 10px;
+      height: 200px;
+      padding: 0px 0px 20px 0px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      overflow-y: auto;
+    }
+    .highlight {
+      background-color: black;
+      color: white;
+    }
+    .customButton{
+      background-color: white;
+      border: none;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      width: 150px;
+      padding: 10px 20px;
+      transition: background-color 0.8s ease;
+    }
+    .customButtonLong{
+      background-color: white;
+      border: none;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      width: 190px;
+      padding: 10px 20px;
+      transition: background-color 0.8s ease;
+    }
+    .algorithmBoxButton {
+      background-color: white;
+      border: none;
+      color: black;
+      text-align: left;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 101.25px 10px;
+      transition: background-color 0.8s ease;
+    }
+    .algorithmBoxButton:hover{
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+    .mainOperationButton {
+      background-color: white;
+      border: none;
+      color: black;
+      text-align: left;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 68px 10px;
+      transition: background-color 0.8s ease;
+    }
+    .mainOperationButton:hover{
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+    .customButton:hover{
+      background-color: black;
+      color: white;
+    }
+    .customButtonLong:hover{
+      background-color: black;
+      color: white;
+    }
+    .inputBox{
+      width: 125px;
+      height: 20px;
+    }
+    .submitButton{
+      background-color: white;
+      border: none;
+      padding: 5px 10px;
+      transition: background-color 0.8s ease;
+    }
+    .submitButton:hover{
+      border: 1px solid white;
+      background-color: black;
+      color: white;
+    }
+    .controlButton{
+      background-color: white;
+      border: none;
+      color: black;
+      cursor: pointer;
+      padding: 3px 7px;
+      transition: background-color 0.8s ease;
+    }
+    .controlButton:hover{
+      background-color: black;
+      /* border: 2px solid white; */
+      color: white;
+    }
+    .controlButton[disabled]{
+      background-color: rgb(74, 74, 74);
+      cursor: not-allowed;
+    }
+    .progressBar{
+      width: 300px;
+      height: 23px;
+      background-color: white;
+      border: 1px solid white;
+      overflow: hidden;
+    }
+    .progress{
+      height: 100%;
+      width: 0%; /* Adjust this value dynamically to change the progress */
+      background-color: black;
+      /* border: 1px solid white; */
+    }
+    .progressText{
+      color: white;
+      text-align: center;
+      font-size: 15px;
+      padding: 3px 2px;
+    }
+  </style>
+
+  <body>
+    <script src="tempSketch.js"></script>
+    <!-- <script src="sketch.js"></script> -->
+    <!-- <div class="progressBar">
+      <div class="progress"></div>
+    </div> -->
+    <div id="algorithm-box"></div>
+  </body>
+</html>

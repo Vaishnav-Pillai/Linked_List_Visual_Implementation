@@ -1,0 +1,80 @@
+let linkedList = [21,45,77,12,54,1,3,4,5,6,7,8];
+let calculated = false;
+let diameter = 50;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background(200);
+  colorMode(HSB);
+  // let instructions = "Click on the canvas to add data points.\nClick the button Cluster, to cluster them. \nAdjust the number of clusters with the slider."
+  // text(instructions, 10, height/2);
+  let calculateButton = createButton('Create');
+  calculateButton.position(10,height-30);
+  calculateButton.mouseClicked(create);
+
+  ellipseMode(CENTER);
+}
+
+function create(){
+  calculated = true;
+}
+
+function drawArrow(startX, startY, endX, endY, arrowSize) {
+  let angle = atan2(endY - startY, endX - startX);
+  let hypotenuse = dist(startX, startY, endX, endY);
+
+  push();
+  translate(startX, startY);
+  rotate(angle);
+  
+  let arrowWidth = arrowSize;
+  let arrowHeight = arrowSize * 2;
+
+  let x1=hypotenuse;
+  let y1=0;
+  let x2=hypotenuse - arrowWidth;
+  let y2=-arrowHeight / 2;
+  let x3=hypotenuse - arrowWidth;
+  let y3=arrowHeight / 2;
+
+  strokeWeight(2);
+  line(0, 0, x1, y1);
+
+  // triangle(hypotenuse, 0,hypotenuse - arrowWidth, -arrowHeight / 2,hypotenuse - arrowWidth, arrowHeight / 2);
+
+  strokeWeight(1);
+  line(x1,y1,x2,y2);
+  line(x1,y1,x3,y3);
+  line(x2,y2,x3,y3);
+  
+  fill(0,0,0);
+
+  beginShape();
+  vertex(x1,y1);
+  vertex(x2,y2);
+  vertex(x3,y3);
+  vertex(x1,y1);
+  endShape(CLOSE);
+
+  pop();
+}
+
+function draw() {
+  if (calculated) {
+    let totalWidth = ((linkedList.length-1) * (diameter+25))+diameter;
+    let startX = (width - totalWidth) / 2;
+    for (i = 0; i < linkedList.length; i++) {
+      let datapointx = startX + i * (diameter+25);
+      let datapointy = (height/2)-50;
+      let distance = datapointx+(diameter/2);
+      ellipse(datapointx, datapointy, diameter, diameter);
+      textAlign(CENTER, CENTER);
+      textSize(18);
+      text(linkedList[i], datapointx, datapointy);
+      if ((i+1)!==linkedList.length) {
+        drawArrow(distance,datapointy,distance+25,datapointy,6);
+      }
+    }
+    calculated=false;
+  }
+}
