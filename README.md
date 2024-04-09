@@ -5,7 +5,7 @@ This project is a visual implementation of a linked list using P5.js. It provide
 
 Getting Started:
 To get started, clone this repository to your local machine:
-git clone https://github.com/your-username/linked-list-visualization.git
+git clone https://github.com/Vaishnav-Pillai/Linked_List_Visual_Implementation.git
 
 Then, install all the necessary things required to run it.
 To install the required packages, you can open your terminal and type:
